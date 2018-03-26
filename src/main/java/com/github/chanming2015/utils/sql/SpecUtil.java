@@ -1,4 +1,4 @@
-package com.github.chanming.spring_webapp_base.util.sql;
+package com.github.chanming2015.utils.sql;
 
 import java.util.Collection;
 import java.util.HashSet;
