@@ -10,11 +10,13 @@ public class SpecProperty
 {
     private final String propertyName;
     private String aliasName;
+    private SpecType specType;
 
     private SpecProperty(String name)
     {
         propertyName = name;
         aliasName = name;
+        specType = SpecType.SELECT;
     }
 
     public static SpecProperty forName(String name)
@@ -36,5 +38,22 @@ public class SpecProperty
     public String getAliasName()
     {
         return aliasName;
+    }
+
+    public SpecType getSpecType()
+    {
+        return specType;
+    }
+
+    public SpecProperty count()
+    {
+        specType = SpecType.COUNT;
+        return this;
+    }
+
+    public SpecProperty sum()
+    {
+        specType = SpecType.SUM;
+        return this;
     }
 }

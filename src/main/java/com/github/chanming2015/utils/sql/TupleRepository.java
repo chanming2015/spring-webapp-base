@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
@@ -32,40 +33,40 @@ public class TupleRepository
 
     public <T> List<Tuple> findAll(Class<T> domainClass, SpecProperty... properties)
     {
-        return findAll(domainClass, null, null, properties);
+        return findAll(domainClass, null, null, null, properties);
     }
 
     public <T> List<Tuple> findAll(Class<T> domainClass, Collection<SpecProperty> properties)
     {
-        return findAll(domainClass, null, null, properties);
+        return findAll(domainClass, null, null, null, properties);
     }
 
     public <T> List<Tuple> findAll(Class<T> domainClass, Specification<T> spec, SpecProperty... properties)
     {
-        return findAll(domainClass, spec, null, properties);
+        return findAll(domainClass, spec, null, null, properties);
     }
 
     public <T> List<Tuple> findAll(Class<T> domainClass, Specification<T> spec, Collection<SpecProperty> properties)
     {
-        return findAll(domainClass, spec, null, properties);
+        return findAll(domainClass, spec, null, null, properties);
     }
 
     public <T> List<Tuple> findAll(Class<T> domainClass, Sort sort, SpecProperty... properties)
     {
-        return findAll(domainClass, null, sort, properties);
+        return findAll(domainClass, null, sort, null, properties);
     }
 
     public <T> List<Tuple> findAll(Class<T> domainClass, Sort sort, Collection<SpecProperty> properties)
     {
-        return findAll(domainClass, null, sort, properties);
+        return findAll(domainClass, null, sort, null, properties);
     }
 
-    public <T> List<Tuple> findAll(Class<T> domainClass, Specification<T> spec, Sort sort, SpecProperty... properties)
+    public <T> List<Tuple> findAll(Class<T> domainClass, Specification<T> spec, Sort sort, Collection<String> groupBys, SpecProperty... properties)
     {
-        return findAll(domainClass, spec, sort, Arrays.asList(properties));
+        return findAll(domainClass, spec, sort, groupBys, Arrays.asList(properties));
     }
 
-    public <T> List<Tuple> findAll(Class<T> domainClass, Specification<T> spec, Sort sort, Collection<SpecProperty> properties)
+    public <T> List<Tuple> findAll(Class<T> domainClass, Specification<T> spec, Sort sort, Collection<String> groupBys, Collection<SpecProperty> properties)
     {
         if ((properties != null) && (properties.size() > 0))
         {
@@ -73,11 +74,29 @@ public class TupleRepository
             CriteriaQuery<Tuple> query = cb.createTupleQuery();
             Root<T> root = query.from(domainClass);
             List<Selection<?>> selections = new ArrayList<Selection<?>>(properties.size());
-            properties.forEach(specProperty -> selections.add(root.get(specProperty.getPropertyName()).alias(specProperty.getAliasName())));
+            properties.forEach(specProperty ->
+            {
+                switch (specProperty.getSpecType())
+                {
+                case COUNT:
+                    selections.add(cb.count(root.get(specProperty.getPropertyName())).alias(specProperty.getAliasName()));
+                    break;
+                case SUM:
+                    selections.add(cb.sum(root.get(specProperty.getPropertyName())).alias(specProperty.getAliasName()));
+                    break;
+                default:
+                    selections.add(root.get(specProperty.getPropertyName()).alias(specProperty.getAliasName()));
+                    break;
+                }
+            });
             query.multiselect(selections);
             if (spec != null)
             {
                 query.where(spec.toPredicate(root, query, cb));
+            }
+            if ((groupBys != null) && (groupBys.size() > 0))
+            {
+                query.groupBy(groupBys.stream().map(groupBy -> root.get(groupBy)).collect(Collectors.toList()));
             }
             if (sort != null)
             {
