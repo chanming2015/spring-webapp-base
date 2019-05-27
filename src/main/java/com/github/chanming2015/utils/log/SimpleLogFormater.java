@@ -3,14 +3,10 @@ package com.github.chanming2015.utils.log;
 import com.alibaba.fastjson.JSON;
 
 /**
- * Package:com.github.chanming2015.utils.log
- * FileName:SimpleLogFormater.java
- * Comments:
- * JDK Version:
- * Author XuMaoSen
- * Create Date:2015年12月4日 下午7:32:19
- * Description: 日志格式化输出工具
- * Version:1.0.0
+ * Create Date:2015年12月4日 下午7:32:19 <br/> 
+ * Description: 日志格式化输出工具 <br/> 
+ * Version:1.0.0 <br/> 
+ * @author XuMaoSen
  */
 public class SimpleLogFormater {
 
@@ -22,7 +18,7 @@ public class SimpleLogFormater {
     public static String formatParams(Object... params) {
         int paramsLength = params.length;
 
-        StringBuffer formated = new StringBuffer("Parameters :");
+        StringBuilder formated = new StringBuilder("Parameters :");
         if (paramsLength == 0) {
             formated.append(" NO PARAM!");
         } else {
@@ -43,7 +39,7 @@ public class SimpleLogFormater {
      * @return
      */
     public static String formatResult(Object result){
-        return "Result : " + JSON.toJSON(result) + ".";
+        return String.format("Result : %s.", JSON.toJSONString(result));
     }
 
     /**
@@ -52,7 +48,7 @@ public class SimpleLogFormater {
      * @return
      */
     public static String formatException(String bizErrorInfo, Exception e){
-        StringBuffer formated = new StringBuffer("Error : ");
+        StringBuilder formated = new StringBuilder("Error : ");
         formated.append(bizErrorInfo);
         formated.append("\nException message : ");
         formated.append(e.getMessage());

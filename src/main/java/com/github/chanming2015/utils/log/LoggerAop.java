@@ -3,55 +3,48 @@ package com.github.chanming2015.utils.log;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
- * Package:com.github.chanming2015.utils.log
- * FileName:LoggerAop.java
- * Comments:
- * JDK Version:
+ * Description: AOP日志接口 <br/> 
+ * Create Date:2015年12月4日 下午7:55:19 <br/> 
+ * Version:1.0.0 <br/> 
  * @author XuMaoSen
- * Create Date:2015年12月4日 下午7:55:19
- * Description: AOP日志接口
- * Version:1.0.0
  */
 public interface LoggerAop {
-
     /**
-     *
-     * @author XuMaoSen
-     * Create Time:2015年8月13日 上午10:49:43
-     * Description 前置通知
+     * Description 前置通知 <br/> 
+     * Create Time:2015年8月13日 上午10:49:43 <br/> 
      * @param param
+     * @author XuMaoSen
      */
     void beforeAdvice(String param);
+    
     /**
-     *
-     * @author XuMaoSen
-     * Create Time:2015年8月13日 上午10:40:35
-     * Description 后置返回通知
+     * Description 后置返回通知 <br/> 
+     * Create Time:2015年8月13日 上午10:40:35 <br/> 
      * @param retVal
+     * @author XuMaoSen
      */
     void afterReturningAdvice(Object retVal);
+    
     /**
-     *
-     * @author XuMaoSen
-     * Create Time:2015年8月13日 上午10:41:06
-     * Description 后置异常通知
+     * Description 后置异常通知 <br/> 
+     * Create Time:2015年8月13日 上午10:41:06 <br/> 
      * @param exception
+     * @author XuMaoSen
      */
     void afterThrowingAdvice(Exception exception);
+    
     /**
-     *
+     * Description 后置最终通知 <br/> 
+     * Create Time:2015年8月13日 上午10:41:40 <br/> 
      * @author XuMaoSen
-     * Create Time:2015年8月13日 上午10:41:40
-     * Description 后置最终通知
      */
     void afterFinallyAdvice();
+    
     /**
-     *
-     * @author XuMaoSen
-     * Create Time:2015年8月13日 上午10:42:51
-     * Description 环绕通知
+     * Description 环绕通知 <br/> 
+     * Create Time:2015年8月13日 上午10:42:51 <br/> 
      * @param pjp
+     * @author XuMaoSen
      */
     Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable;
-
 }

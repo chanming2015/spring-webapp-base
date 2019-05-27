@@ -5,10 +5,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
- * Description:
- * Create Date:2016年12月7日
+ * Description: <br/> 
+ * Create Date:2016年12月7日 <br/> 
+ * Version:1.0.0 <br/> 
  * @author XuMaoSen
- * Version:1.0.0
  */
 @FunctionalInterface
 public interface SpecCriterion

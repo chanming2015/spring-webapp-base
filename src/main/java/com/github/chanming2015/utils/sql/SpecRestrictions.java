@@ -3,10 +3,10 @@ package com.github.chanming2015.utils.sql;
 import java.util.Collection;
 
 /**
- * Description:
- * Create Date:2016年12月7日
+ * Description: <br/> 
+ * Create Date:2016年12月7日 <br/> 
+ * Version:1.0.0 <br/> 
  * @author XuMaoSen
- * Version:1.0.0
  */
 public class SpecRestrictions
 {
@@ -67,5 +67,4 @@ public class SpecRestrictions
     {
         return (root, cb) -> cb.between(root.get(attributeName), lessValue, greaterValue);
     }
-
 }

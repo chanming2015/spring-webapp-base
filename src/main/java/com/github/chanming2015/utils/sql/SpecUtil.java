@@ -9,9 +9,10 @@ import javax.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
- * Description: Create Date:2016年12月7日
- *
- * @author XuMaoSen Version:1.0.0
+ * Description: <br/> 
+ * Create Date: 2016年12月7日 <br/> 
+ * Version:1.0.0 <br/> 
+ * @author XuMaoSen
  */
 public class SpecUtil
 {
