@@ -1,8 +1,8 @@
 package com.github.chanming2015.utils.sql;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
  */
 public class SpecParam<T>
 {
-    private final Map<String, SpecCriterion> specCriterions = new HashMap<String, SpecCriterion>(4);
+    private final Map<String, SpecCriterion> specCriterions = new LinkedHashMap<>(4);
     private Set<Collection<SpecCriterion>> orSpecCriterions = null;
 
     public SpecParam<T> isNull(String fieldName)
@@ -73,7 +73,8 @@ public class SpecParam<T>
         return this;
     }
 
-    public SpecParam<T> in(String fieldName, Collection<?> value) {
+    public SpecParam<T> in(String fieldName, Collection<?> value)
+    {
         if (!StringUtils.isEmpty(fieldName) && (null != value) && (value.size() > 0))
         {
             specCriterions.put(fieldName, SpecRestrictions.in(fieldName, value));
@@ -126,7 +127,7 @@ public class SpecParam<T>
             {
                 if (null == orSpecCriterions)
                 {
-                    orSpecCriterions = new HashSet<Collection<SpecCriterion>>(4);
+                    orSpecCriterions = new LinkedHashSet<>(4);
                 }
                 orSpecCriterions.add(specCriterions);
             }

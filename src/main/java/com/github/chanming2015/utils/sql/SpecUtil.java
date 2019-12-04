@@ -1,7 +1,7 @@
 package com.github.chanming2015.utils.sql;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.criteria.Predicate;
@@ -26,7 +26,7 @@ public class SpecUtil
                 Collection<SpecCriterion> specs = specParam.getCriterions();
                 if (specs.size() > 0)
                 {
-                    Set<Predicate> predicates = new HashSet<Predicate>(4);
+                    Set<Predicate> predicates = new LinkedHashSet<>(4);
                     specs.forEach(spec -> predicates.add(spec.getPredicate(root, cb)));
                     result = cb.and(predicates.toArray(new Predicate[predicates.size()]));
                 }
@@ -35,10 +35,9 @@ public class SpecUtil
                 {
                     for (Collection<SpecCriterion> orSpecs : orSpecSet)
                     {
-                        Set<Predicate> predicates = new HashSet<Predicate>(4);
+                        Set<Predicate> predicates = new LinkedHashSet<>(4);
                         orSpecs.forEach(spec -> predicates.add(spec.getPredicate(root, cb)));
-                        Predicate orResult = cb.or(predicates.toArray(new Predicate[predicates.size()]));
-                        result = cb.and(result, orResult);
+                        result = cb.and(result, cb.or(predicates.toArray(new Predicate[predicates.size()])));
                     }
                 }
                 return result;
