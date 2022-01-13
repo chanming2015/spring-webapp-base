@@ -24,7 +24,7 @@ public class SimpleLogFormater {
         } else {
             for (int i = 0; i < paramsLength; i++) {
                 formated.append(" PARAM");
-                formated.append((i + 1));
+                formated.append(i + 1);
                 formated.append(":");
                 formated.append(JSON.toJSON(params[i]));
                 formated.append(";");
@@ -34,12 +34,14 @@ public class SimpleLogFormater {
     }
 
     /**
-     * 将方法调用的返回结果格式化输出
-     * @param result
+     * Description: 将方法调用的返回结果格式化输出 <br/> 
+     * Create Date:2022年1月7日 <br/> 
+     * @author XuMaoSen
      * @return
      */
-    public static String formatResult(Object result){
-        return String.format("Result : %s.", JSON.toJSONString(result));
+    public static String formatResult(String methodName, Object result)
+    {
+        return String.format("Result : %s(); %s.", methodName, JSON.toJSON(result));
     }
 
     /**

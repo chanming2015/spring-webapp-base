@@ -47,4 +47,22 @@ public interface LoggerAop {
      * @author XuMaoSen
      */
     Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable;
+    /**
+     * Description: 环绕通知 <br/> 
+     * Create Date:2021年12月24日 <br/> 
+     * @author XuMaoSen
+     * @param isPrintResponse 是否打印结果日志
+     * @return
+     */
+    Object aroundAdvice(ProceedingJoinPoint pjp, boolean isPrintResponse) throws Throwable;
+
+    /**
+     * Description: 环绕通知 <br/> 
+     * Create Date:2021年12月24日 <br/> 
+     * @author XuMaoSen
+     * @param isPrintResponse 是否打印结果日志
+     * @param maxResultLength 结果日志最大长度
+     * @return
+     */
+    Object aroundAdvice(ProceedingJoinPoint pjp, boolean isPrintResponse, int maxResultLength) throws Throwable;
 }
